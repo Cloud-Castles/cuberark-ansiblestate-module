@@ -1,0 +1,24 @@
+---
+# Copyright (c) CyberArk
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+namespace: cyberark
+name: migrations
+version: 0.0.2
+readme: README.md
+authors:
+  - Vadim Romanov (vadim.romanov@cyberark.com)
+description: >-
+  The cyberark.migrations collection is a set of ansible modules and tools to facilitate umu and h2p migrations.
+license_file: COPYING
+tags:
+  - cyberark
+manifest:
+  directives:
+    - recursive-exclude playbooks/sensitive **
+    - global-exclude *.tar.gz
+repository: https://github.com/Cloud-Castles/cuberark-ansiblestate-module
+documentation: https://docs.ansible.com/ansible/latest/collections/community/general/
+homepage: https://github.com/Cloud-Castles/cuberark-ansiblestate-module
+issues: https://github.com/Cloud-Castles/cuberark-ansiblestate-module/issues
