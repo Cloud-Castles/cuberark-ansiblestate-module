@@ -101,10 +101,9 @@ state:
 
 import os
 import json
-import tempfile
 import boto3
+import botocore
 
-from ansible.module_utils.six.moves import shlex_quote
 from ansible.module_utils.six import integer_types
 
 from ansible.module_utils.basic import AnsibleModule
@@ -131,8 +130,15 @@ def init_state_file(state_file, state_backend='local',bucket_name=None):
       if not os.path.exists(state_file):
           return _create_local_state_file(state_file)
     elif state_backend == 's3':
-        return _create_s3_state_file(bucket_name,state_file)
-        
+        s3 = boto3.client("s3")
+        try:
+          s3.head_object(Bucket=bucket_name, Key=state_file)
+          return None
+        except botocore.exceptions.ClientError as e:
+          if e.response["Error"]["Code"] == "404":
+            return _create_s3_state_file(bucket_name,state_file)
+          else:
+            raise
     else:
         return None
 
